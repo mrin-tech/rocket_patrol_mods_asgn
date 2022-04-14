@@ -11,8 +11,7 @@ class Menu extends Phaser.Scene {
 
         this.load.audio('sfx_select', './ghost_assets/ghost_blip.wav');
         this.load.audio('sfx_explosion', './ghost_assets/whoosh.wav');
-        this.load.audio('sfx_rocket', './ghost_assets/salt_sound.wav');
-        console.log("hello?");
+        this.load.audio('sfx_salt', './ghost_assets/salt_sound.wav');
     }
 
     create() {
