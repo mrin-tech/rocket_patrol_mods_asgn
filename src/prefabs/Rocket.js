@@ -9,6 +9,22 @@ class Rocket extends Phaser.GameObjects.Sprite {
         this.sfxRocket = scene.sound.add('sfx_salt');
     }
 
+    create() {
+        let txtConfig2 = {
+            fontFamily: 'Courier',
+            fontSize: '12px',
+            backgroundColor: '#cdbbbc',
+            color: '#843605',
+            align: 'center',
+            padding: {
+            top: 2,
+            bottom: 2,
+            },
+            // fixedWidth: 100
+        }
+        this.fireTxt = this.add.text(borderUISize + borderPadding + 512, borderUISize + borderPadding*2 - 10, 'f', txtConfig2);
+    }
+
     update() {
         // left/right movement
         if(!this.isFiring) {
@@ -22,6 +38,8 @@ class Rocket extends Phaser.GameObjects.Sprite {
         if(Phaser.Input.Keyboard.JustDown(keyF) && !this.isFiring) {
             this.isFiring = true;
             this.sfxRocket.play();  // play sfx
+            // this.FireText();
+            
         }
         // if fired, move up
         if(this.isFiring && this.y >= borderUISize * 3 + borderPadding) {
@@ -36,5 +54,9 @@ class Rocket extends Phaser.GameObjects.Sprite {
     reset() {
         this.isFiring = false;
         this.y = game.config.height - borderUISize - borderPadding;
+    }
+
+    FireText() {
+        this.fireTxt.text = 'Salt that Ghost!';
     }
 }

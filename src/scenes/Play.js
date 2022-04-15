@@ -7,7 +7,7 @@ class Play extends Phaser.Scene {
         // load images/tile sprites
         // this.load.image('rocket', './assets/rocket.png');
         this.load.image('salt', './ghost_assets/salt.png');
-        this.load.image('ghost', './ghost_assets/ghost2.png');
+        this.load.image('ghost', './ghost_assets/ghosty.png');
         this.load.image('starfield', './ghost_assets/graveyard.png');
         // load spritesheet
         this.load.spritesheet('explosion', './ghost_assets/ghost_vanish.png', {frameWidth: 64, frameHeight: 32, startFrame: 0, endFrame: 9});
@@ -61,7 +61,25 @@ class Play extends Phaser.Scene {
             },
             fixedWidth: 100
         }
-        this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2, this.p1Score, scoreConfig);
+
+        let txtConfig = {
+            fontFamily: 'Courier',
+            fontSize: '12px',
+            backgroundColor: '#cdbbbc',
+            color: '#843605',
+            align: 'center',
+            padding: {
+            top: 2,
+            bottom: 2,
+            },
+            // fixedWidth: 100
+        }
+
+        this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2 + 10, this.p1Score, scoreConfig);
+        this.currentScore = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2 - 10, 'Current Score:', txtConfig);
+
+        this.scoreMiddle = this.add.text(borderUISize + borderPadding + 128, borderUISize + borderPadding*2 + 10, this.highScore, scoreConfig);
+        this.highScoreTxt = this.add.text(borderUISize + borderPadding + 128, borderUISize + borderPadding*2 - 10, 'HighScore:', txtConfig);
 
         // GAME OVER flag
         this.gameOver = false;
@@ -71,6 +89,8 @@ class Play extends Phaser.Scene {
         this.clock = this.time.delayedCall(game.settings.gameTimer, () => {
             this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5);
             this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or ← for Menu', scoreConfig).setOrigin(0.5);
+            if (this.p1Score > highScore) highScore = this.p1Score;
+            this.add.text(game.config.width/2, game.config.height/2 + 128, 'HighScore: ' + highScore, scoreConfig).setOrigin(0.5);
             this.gameOver = true;
         }, null, this);
 
@@ -113,7 +133,7 @@ class Play extends Phaser.Scene {
         // simple AABB checking
         if (rocket.x < ship.x + ship.width && 
             rocket.x + rocket.width > ship.x && 
-            rocket.y < ship.y + ship.height &&
+            rocket.y < ship.y + ship.height  &&
             rocket.height + rocket.y > ship. y) {
                 return true;
         } else {
@@ -135,6 +155,8 @@ class Play extends Phaser.Scene {
         // score add and repaint
         this.p1Score += ship.points;
         this.scoreLeft.text = this.p1Score;   
+        this.scoreMiddle.text = this.p1Score;
+        if (this.p1Score > highScore) this.highScoreTxt.text = 'New High Score!';
         this.sound.play('sfx_explosion');     
       }
 
