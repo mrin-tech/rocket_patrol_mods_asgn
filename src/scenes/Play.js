@@ -6,8 +6,8 @@ class Play extends Phaser.Scene {
     preload() {
         // load images/tile sprites
         // this.load.image('rocket', './assets/rocket.png');
-        this.load.image('salt', './ghost_assets/salt.png');
-        this.load.image('ghost', './ghost_assets/ghosty.png');
+        this.load.image('salt', './ghost_assets/salt2.png');
+        this.load.image('ghost', './ghost_assets/ghosty2.png');
         this.load.image('starfield', './ghost_assets/graveyard.png');
         // load spritesheet
         this.load.spritesheet('explosion', './ghost_assets/ghost_vanish.png', {frameWidth: 64, frameHeight: 32, startFrame: 0, endFrame: 9});
