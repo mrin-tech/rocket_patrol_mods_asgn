@@ -146,15 +146,18 @@ class Play extends Phaser.Scene {
         // check collisions
         if(this.checkCollision(this.p1Rocket, this.ship03)) {
             this.p1Rocket.reset();
-            this.shipExplode(this.ship03);   
+            this.shipExplode(this.ship03);  
+            this.addTime(this.ship03);  
         }
         if (this.checkCollision(this.p1Rocket, this.ship02)) {
             this.p1Rocket.reset();
             this.shipExplode(this.ship02);
+            this.addTime(this.ship02);
         }
         if (this.checkCollision(this.p1Rocket, this.ship01)) {
             this.p1Rocket.reset();
             this.shipExplode(this.ship01);
+            this.addTime(this.ship01);
         }
     }
 
@@ -168,6 +171,13 @@ class Play extends Phaser.Scene {
         } else {
             return false;
         }
+    }
+
+    // adds time for every correct collision
+    addTime(ship) {
+        if (ship == this.ship01) this.gameTotalTime += 5000;
+        if (ship == this.ship02) this.gameTotalTime += 10000;
+        if (ship == this.ship03) this.gameTotalTime += 15000;
     }
 
     shipExplode(ship) {
@@ -186,7 +196,9 @@ class Play extends Phaser.Scene {
         this.scoreLeft.text = this.p1Score;   
         this.scoreMiddle.text = this.p1Score;
         if (this.p1Score > highScore) this.highScoreTxt.text = 'New High Score!';
-        this.sound.play('sfx_explosion');     
+        this.sound.play('sfx_explosion');  
+        // this.gameTotalTime += 5000;
+        
       }
 
     timeFormat(ms) {
