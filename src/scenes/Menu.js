@@ -12,6 +12,8 @@ class Menu extends Phaser.Scene {
         this.load.audio('sfx_select', './ghost_assets/ghost_blip.wav');
         this.load.audio('sfx_explosion', './ghost_assets/whoosh.wav');
         this.load.audio('sfx_salt', './ghost_assets/salt_sound.wav');
+        // Music by NaturesEye from Pixabay (copyright free)
+        this.load.audio('sfx_music', './ghost_assets/ghostly_music.mp3')
     }
 
     create() {
@@ -48,6 +50,7 @@ class Menu extends Phaser.Scene {
             spaceshipSpeed: 3,
             gameTimer: 60000    
           }
+          this.sound.play('sfx_music');
           this.sound.play('sfx_select');
           this.scene.start('playScene');    
         }
@@ -57,6 +60,7 @@ class Menu extends Phaser.Scene {
             spaceshipSpeed: 4,
             gameTimer: 45000    
           }
+          this.sound.play('sfx_music');
           this.sound.play('sfx_select');
           this.scene.start('playScene');    
         }

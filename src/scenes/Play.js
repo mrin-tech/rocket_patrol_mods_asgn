@@ -64,7 +64,7 @@ class Play extends Phaser.Scene {
 
         let txtConfig = {
             fontFamily: 'Courier',
-            fontSize: '12px',
+            fontSize: '14px',
             backgroundColor: '#cdbbbc',
             color: '#843605',
             align: 'center',
@@ -75,11 +75,40 @@ class Play extends Phaser.Scene {
             // fixedWidth: 100
         }
 
-        this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2 + 10, this.p1Score, scoreConfig);
-        this.currentScore = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2 - 10, 'Current Score:', txtConfig);
+        let timeConfig =
+        {
+            fontFamily: 'Courier',
+            fontSize: '28px',
+            backgroundColor: '#cdbbbc',
+            color: '#843605',
+            align: 'right',
+            padding: {
+            top: 5,
+            bottom: 5,
+            },
+            fixedWidth: 100
+        };
 
+        // displays player's current score
+        this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2 + 10, this.p1Score, scoreConfig);
+        this.currentScore = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2 - 10, 'Score:', txtConfig);
+
+        // display high score
         this.scoreMiddle = this.add.text(borderUISize + borderPadding + 128, borderUISize + borderPadding*2 + 10, this.highScore, scoreConfig);
         this.highScoreTxt = this.add.text(borderUISize + borderPadding + 128, borderUISize + borderPadding*2 - 10, 'HighScore:', txtConfig);
+
+        // display timer
+        // code refrences https://phaser.discourse.group/t/countdown-timer/2471/4 to create timer
+        this.gameTotalTime = game.settings.gameTimer;
+        this.timeTxt = this.add.text(borderUISize + borderPadding + 448, borderUISize + borderPadding*2 - 10, 'Timer:', txtConfig);
+        this.displayTime = this.add.text(borderUISize + borderPadding + 448, borderUISize + borderPadding*2 + 10, this.timeFormat(this.gameTotalTime),  timeConfig );
+        this.timedEvent = this.time.addEvent
+        (
+            {delay: 1000,
+            callback: () => {this.gameTotalTime -= 1000; this.displayTime.text = this.timeFormat(this.gameTotalTime);}, scope: this, loop: true
+            }
+        );
+
 
         // GAME OVER flag
         this.gameOver = false;
@@ -160,6 +189,13 @@ class Play extends Phaser.Scene {
         this.sound.play('sfx_explosion');     
       }
 
-
+    timeFormat(ms) {
+        let sec = ms/1000;
+        let seconds = sec%60;
+        let min = Math.floor(sec/60);
+        seconds = seconds.toString().padStart(2, "0");
+        if (seconds < 0) timedEvent.remove(true);
+        return `${min}:${seconds}`;
+     }
 
   }
