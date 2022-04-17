@@ -34,7 +34,7 @@ class Play extends Phaser.Scene {
         this.ship03 = new Spaceship(this, game.config.width, borderUISize*6 + borderPadding*4, 'ghost', 0, 10).setOrigin(0,0);
 
         // add extra ghost 
-        this.ghost2 = new Spaceship(this, game.config.width + borderUISize*10, borderUISize*4, 'ghost2img', 0, 50).setOrigin(0, 0);
+        this.newGhost = new Ghost2(this, game.config.width + borderUISize*10, borderUISize*4, 'ghost2img', 0, 50).setOrigin(0, 0);
 
         // define keys
         keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
@@ -149,7 +149,7 @@ class Play extends Phaser.Scene {
             this.ship01.update();           // update spaceships (x3)
             this.ship02.update();
             this.ship03.update();
-            this.ghost2.update();
+            this.newGhost.update();
         } 
 
         // check collisions
@@ -170,9 +170,9 @@ class Play extends Phaser.Scene {
         }
 
         // ghost 2 collision
-        if (this.checkCollision(this.p1Rocket, this.ghost2)) {
+        if (this.checkCollision(this.p1Rocket, this.newGhost)) {
             this.p1Rocket.reset();
-            this.shipExplode(this.ghost2);
+            this.shipExplode(this.newGhost);
             // this.addTime(this.ship01);
         }
     }
