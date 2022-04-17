@@ -7,8 +7,9 @@ class Play extends Phaser.Scene {
         // load images/tile sprites
         // this.load.image('rocket', './assets/rocket.png');
         this.load.image('salt', './ghost_assets/salt2.png');
-        this.load.image('ghost', './ghost_assets/ghosty2.png');
+        this.load.image('ghost', './ghost_assets/ghosty.png');
         this.load.image('starfield', './ghost_assets/graveyard.png');
+        this.load.image('ghost2img', './ghost_assets/hoodie_ghost.png');
         // load spritesheet
         this.load.spritesheet('explosion', './ghost_assets/ghost_vanish.png', {frameWidth: 64, frameHeight: 32, startFrame: 0, endFrame: 9});
       }
@@ -31,6 +32,9 @@ class Play extends Phaser.Scene {
         this.ship01 = new Spaceship(this, game.config.width + borderUISize*6, borderUISize*4, 'ghost', 0, 30).setOrigin(0, 0);
         this.ship02 = new Spaceship(this, game.config.width + borderUISize*3, borderUISize*5 + borderPadding*2, 'ghost', 0, 20).setOrigin(0,0);
         this.ship03 = new Spaceship(this, game.config.width, borderUISize*6 + borderPadding*4, 'ghost', 0, 10).setOrigin(0,0);
+
+        // add extra ghost 
+        this.ghost2 = new Spaceship(this, game.config.width + borderUISize*10, borderUISize*4, 'ghost2img', 0, 50).setOrigin(0, 0);
 
         // define keys
         keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
@@ -145,23 +149,31 @@ class Play extends Phaser.Scene {
             this.ship01.update();           // update spaceships (x3)
             this.ship02.update();
             this.ship03.update();
+            this.ghost2.update();
         } 
 
         // check collisions
         if(this.checkCollision(this.p1Rocket, this.ship03)) {
             this.p1Rocket.reset();
             this.shipExplode(this.ship03);  
-            this.addTime(this.ship03);  
+            // this.addTime(this.ship03); 
         }
         if (this.checkCollision(this.p1Rocket, this.ship02)) {
             this.p1Rocket.reset();
             this.shipExplode(this.ship02);
-            this.addTime(this.ship02);
+            // this.addTime(this.ship02);
         }
         if (this.checkCollision(this.p1Rocket, this.ship01)) {
             this.p1Rocket.reset();
             this.shipExplode(this.ship01);
-            this.addTime(this.ship01);
+            // this.addTime(this.ship01);
+        }
+
+        // ghost 2 collision
+        if (this.checkCollision(this.p1Rocket, this.ghost2)) {
+            this.p1Rocket.reset();
+            this.shipExplode(this.ghost2);
+            // this.addTime(this.ship01);
         }
     }
 
@@ -179,9 +191,10 @@ class Play extends Phaser.Scene {
 
     // adds time for every correct collision
     addTime(ship) {
-        if (ship == this.ship01) this.gameTotalTime += 5000;
-        if (ship == this.ship02) this.gameTotalTime += 10000;
-        if (ship == this.ship03) this.gameTotalTime += 15000;
+        if (ship == this.ship01) this.gameTotalTime += 2000;  
+        if (ship == this.ship02) this.gameTotalTime += 4000; 
+        if (ship == this.ship03) this.gameTotalTime += 6000; 
+
     }
 
     shipExplode(ship) {
