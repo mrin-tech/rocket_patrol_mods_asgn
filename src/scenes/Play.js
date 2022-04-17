@@ -99,9 +99,13 @@ class Play extends Phaser.Scene {
 
         // display timer
         // code refrences https://phaser.discourse.group/t/countdown-timer/2471/4 to create timer
+        // this sets the total game time 
         this.gameTotalTime = game.settings.gameTimer;
+        // add "Timer" text
         this.timeTxt = this.add.text(borderUISize + borderPadding + 448, borderUISize + borderPadding*2 - 10, 'Timer:', txtConfig);
-        this.displayTime = this.add.text(borderUISize + borderPadding + 448, borderUISize + borderPadding*2 + 10, this.timeFormat(this.gameTotalTime),  timeConfig );
+        // display the actual timer
+        this.displayTime = this.add.text(borderUISize + borderPadding + 448, borderUISize + borderPadding*2 + 10, this.timeFormat(this.gameTotalTime), timeConfig);
+        // decrement from the timer
         this.timedEvent = this.time.addEvent
         (
             {delay: 1000,
@@ -200,7 +204,9 @@ class Play extends Phaser.Scene {
         // this.gameTotalTime += 5000;
         
       }
-
+    
+    // format the time with the given parameter in miliseconds
+    // time is formatted as min:seconds
     timeFormat(ms) {
         let sec = ms/1000;
         let seconds = sec%60;
