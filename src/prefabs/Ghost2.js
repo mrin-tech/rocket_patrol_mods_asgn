@@ -4,12 +4,12 @@ class Ghost2 extends Phaser.GameObjects.Sprite {
         super(scene, x, y, texture, frame);
         scene.add.existing(this);   // add to existing scene
         this.points = pointValue;   // store pointValue
-        this.moveSpeed = game.settings.ghostSpeed;         // pixels per frame
+        this.Speed2 = game.settings.ghostSpeed;         // pixels per frame
     }
 
     update() {
         // move spaceship left
-        this.x -= this.ghostSpeed;
+        this.x -= this.Speed2;
         // wrap around from left edge to right edge
         if(this.x <= 0 - this.width) {
             this.reset();
