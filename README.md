@@ -16,7 +16,7 @@ Create a new spaceship type (w/ new artwork) that's smaller, moves faster, and i
 I added a small ghost with a purple hoodie that is worth 50 points. That ghost moves at 10 speed.
 
 Display the time remaining (in seconds) on the screen (10):
-Referenced code from https://phaser.discourse.group/t/countdown-timer/2471/4 to create timer. The timer is in Play.js
+Referenced code from https://phaser.discourse.group/t/countdown-timer/2471/4 to create convert the time remaining in the game to an analog clock format. The timer is in Play.js
 
 Add your own (copyright-free) background music to the Play scene (5):
 The background music I added is copyright free (credit to the musician: Music by NaturesEye from Pixabay)
